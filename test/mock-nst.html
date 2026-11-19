@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Mock lecture portal</title>
+<style>
+body{font-family:sans-serif;margin:0 40px;width:1500px}
+.hdr,.row{display:flex;align-items:center;border-bottom:1px solid #eee;padding:14px 0;min-height:60px}
+.hdr{background:#f3f3f3;letter-spacing:2px;font-size:12px;min-height:20px}
+.c1{width:700px;display:flex;gap:12px}.c2{width:400px}.c3{width:300px}
+.meta{color:#666;font-size:13px}
+</style></head><body>
+<div style="display:flex;justify-content:space-between"><div><h2>Lectures</h2><p><span id="n"></span> lectures</p></div>
+<div><b id="pct"></b><p><span id="sum"></span> Attended</p></div></div>
+<div class="hdr"><div class="c1"><span>LECTURE</span></div><div class="c2"><span>ATTENDANCE</span></div><div class="c3"><span>XP EARNED</span></div></div>
+<div id="list"></div>
+<script>
+const subs=["PSP - A","Maths I - A","S&AI - A","PSP Lab 2 - A","Maths I Lab 2 - A","S&AI Lab 2 - A"];
+// pattern per subject: 1 = ✓, 0 = –
+const pat={"PSP - A":[1,1,1,1,0,1,1,1],"Maths I - A":[1,0,0,1,1,0,1,1],"S&AI - A":[1,1,1,1,1,1,1,1],
+ "PSP Lab 2 - A":[1,1,0,1],"Maths I Lab 2 - A":[1,1,1,0],"S&AI Lab 2 - A":[0,0,1,1]};
+const data=[];let d=1;
+for(let i=0;i<8;i++)for(const s of subs){if(pat[s][i]===undefined)continue;data.push({s,a:pat[s][i],t:"Topic "+(data.length+1)+", Something, Another thing ...",d:"Nov "+((d++%28)+1)+", 2026"});}
+const P=data.filter(x=>x.a).length;
+document.getElementById('n').textContent=data.length;
+document.getElementById('sum').textContent=P+"/"+data.length;
+document.getElementById('pct').textContent=Math.round(100*P/data.length)+"%";
+const check='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>';
+const play='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>';
+let shown=0;
+function more(){const L=document.getElementById('list');for(let k=0;k<10&&shown<data.length;k++,shown++){const x=data[shown];
+ L.insertAdjacentHTML('beforeend',`<div class="row"><div class="c1">${play}<div><div>${x.t}</div><div class="meta"><span>${x.s}</span> • <span>${x.d}</span> • <span>1:30:00</span></div></div></div><div class="c2">${x.a?check:'<span>-</span>'}</div><div class="c3">${x.a?'2x 30/30':'0/30'}</div></div>`);}}
+more();
+addEventListener('scroll',()=>{if(innerHeight+scrollY>=document.body.scrollHeight-50)setTimeout(more,200)});
+</script></body></html>

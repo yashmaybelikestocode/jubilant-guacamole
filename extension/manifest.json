@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Attendance Calculator",
+  "version": "1.0.0",
+  "description": "See your attendance per subject on your college portal (NST and others) and how many classes you can skip or must attend to stay above 75%.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Attendance Calculator",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
